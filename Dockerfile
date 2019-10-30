@@ -3,6 +3,7 @@ COPY . /app
 WORKDIR /app
 RUN ["dotnet", "restore"]
 RUN ["dotnet", "build"]
+RUN ["dotnet", "tool install --global dotnet-ef"]
 ENV PATH="${PATH}:/root/.dotnet/tools"
 EXPOSE 80/tcp
 RUN chmod +x ./entrypoint.sh
