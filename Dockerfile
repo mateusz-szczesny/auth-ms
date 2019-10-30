@@ -20,8 +20,6 @@ RUN dotnet restore
 COPY . ./
 RUN dotnet publish -c Release -o out
 
-EXPOSE 80/tcp
-
 COPY /app/out .
 RUN chmod +x ./entrypoint.sh
 CMD /bin/bash ./entrypoint.sh
