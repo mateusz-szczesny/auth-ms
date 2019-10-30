@@ -21,7 +21,7 @@ namespace Auth.Extensions
             var connection = configuration["DatabaseUrl"];
             services.AddDbContext<Auth.Models.DbContext>(options =>
             options.UseSqlServer(connection));
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole<long>>()
                 .AddEntityFrameworkStores<Auth.Models.DbContext>();
         }
         public static void AddAuthenticationServices(this IServiceCollection services, IConfiguration configuration)
