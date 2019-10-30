@@ -7,8 +7,9 @@
 # RUN chmod +x ./entrypoint.sh
 # CMD /bin/bash ./entrypoint.sh
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0
 WORKDIR /app
+EXPOSE 80/tcp
 
 RUN dotnet tool install --global dotnet-ef
 ENV PATH="${PATH}:/root/.dotnet/tools"
@@ -21,6 +22,7 @@ RUN dotnet publish -c Release -o out
 
 EXPOSE 80/tcp
 
-WORKDIR /app
-COPY --from=build-env /app/out .
+COPY /app/out .
+RUN chmod +x ./entrypoint.sh
+CMD /bin/bash ./entrypoint.sh
 ENTRYPOINT ["dotnet", "Auth.dll"]
