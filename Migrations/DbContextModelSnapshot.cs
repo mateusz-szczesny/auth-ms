@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Auth.Migrations
 {
-    [DbContext(typeof(DbContext))]
+    [DbContext(typeof(Auth.Models.DbContext))]
     partial class DbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
