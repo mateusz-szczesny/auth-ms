@@ -11,6 +11,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System;
 
 namespace Auth.Extensions
 {
@@ -18,7 +19,11 @@ namespace Auth.Extensions
     {
         public static void AddDatabaseServices(this IServiceCollection services, IConfiguration configuration)
         {
-            var connection = configuration["DatabaseUrl"];
+            var connection = Environment.GetEnvironmentVariable("DATABASE_URL");
+            if (String.IsNullOrEmpty(connection))
+            {
+                connection = configuration["DatabaseUrl"];
+            }
             services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>(options =>
             options.UseNpgsql(connection));
             services.AddIdentity<User, IdentityRole<long>>()
