@@ -21,7 +21,7 @@ namespace Auth
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("http://+:8000");
+                    webBuilder.UseUrls("http://+:80");
                 });
     }
 }
