@@ -8,7 +8,7 @@ namespace Auth.Models
 {
     public static class TokenGenerator
     {
-        public static string GenerateToken(AuthorizationSettings settings, long userId)
+        public static string GenerateToken(AuthorizationSettings settings, string userId)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(settings.Secret);
@@ -16,7 +16,7 @@ namespace Auth.Models
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, userId.ToString())
+                    new Claim(ClaimTypes.Name, userId)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

@@ -30,29 +30,20 @@ namespace Auth.Repositories
         {
             try
             {
-                var userByEmail = await _context.Users.FirstOrDefaultAsync(x => x.Email == identifier || x.UserName == identifier);
-                if (userByEmail != null && await _userManager.CheckPasswordAsync(userByEmail, password))
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == identifier || x.UserName == identifier);
+                if (user != null && await _userManager.CheckPasswordAsync(user, password))
                 {
-                    await _signInManager.SignInAsync(userByEmail, true, null);
-                    return new Token(TokenGenerator.GenerateToken(_settings.Value, userByEmail.Id));
+                    await _signInManager.SignInAsync(user, true);
+                    return new Token(TokenGenerator.GenerateToken(_settings.Value, user.Id.ToString()));
                 }
                 else
                 {
-                    var userByUserName = await _context.Users.FirstOrDefaultAsync(x => x.UserName == identifier);
-                    if (userByUserName != null && await _userManager.CheckPasswordAsync(userByUserName, password))
-                    {
-                        await _signInManager.SignInAsync(userByEmail, true, null);
-                        return new Token(TokenGenerator.GenerateToken(_settings.Value, userByEmail.Id));
-                    }
-                    else
-                    {
-                        throw new Exception("Username or password is invalid");
-                    }
+                    throw new Exception("Username or password is invalid");
                 }
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw e;
             }
         }
         public async Task<User> Register(string username, string email, string password)
@@ -75,7 +66,7 @@ namespace Auth.Repositories
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw e;
             }
         }
     }

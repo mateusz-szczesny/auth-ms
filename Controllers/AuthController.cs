@@ -69,8 +69,8 @@ namespace Auth.Controllers
             }
             try
             {
-                await _authService.Register(request.Username, request.Email, request.Password);
-                return CreatedAtAction(nameof(Login), new { identifier = request.Username, password = request.Password }, request);
+                var user = await _authService.Register(request.Username, request.Email, request.Password);
+                return Ok(new UserResponse { Id = user.Id, Username = user.UserName });
             }
             catch (Exception e)
             {

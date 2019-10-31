@@ -14,7 +14,7 @@ namespace Auth.Validators
             RuleFor(x => x.Password)
                 .NotEmpty()
                 .NotNull()
-                .WithMessage("password cannot be blank.");
+                .WithMessage("Password cannot be blank.");
         }
     }
 }
