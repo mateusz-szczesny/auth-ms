@@ -34,7 +34,7 @@ namespace Auth.Repositories
                 if (user != null && await _userManager.CheckPasswordAsync(user, password))
                 {
                     await _signInManager.SignInAsync(user, true);
-                    return new Token(TokenGenerator.GenerateToken(_settings.Value, user.Id.ToString()));
+                    return new Token(TokenGenerator.GenerateToken(_settings.Value, user.UserName));
                 }
                 else
                 {
@@ -50,7 +50,7 @@ namespace Auth.Repositories
         {
             try
             {
-                var newUser = new Auth.Models.User();
+                var newUser = new User();
                 newUser.UserName = username;
                 newUser.Email = email;
                 var result = await _userManager.CreateAsync(newUser, password);

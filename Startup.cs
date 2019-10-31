@@ -22,6 +22,7 @@ namespace Auth
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddDatabaseServices(Configuration);
+            services.AddAuthenticationServices(Configuration);
             services.AddControllers();
             services.AddValidators();
             services.AddDomainServices();
@@ -38,6 +39,7 @@ namespace Auth
             }
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

@@ -58,7 +58,7 @@ namespace Auth.Controllers
         /// <response code="200">Ok - successful</response>
         /// <response code="400">Bad Request - error during request(Error in message)</response>
         [HttpPost("signup")]
-        [ProducesResponseType(typeof(TokenResponse), 200)]
+        [ProducesResponseType(typeof(UserResponse), 200)]
         [ProducesResponseType(typeof(ErrorPayload), 400)]
         public async Task<IActionResult> SignUp([FromBody] SignUpRequest request)
         {

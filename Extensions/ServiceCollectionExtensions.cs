@@ -47,8 +47,8 @@ namespace Auth.Extensions
                     OnTokenValidated = async context =>
                     {
                         var userService = context.HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
-                        var userId = context.Principal.Identity.Name;
-                        var user = await userService.Users.FirstOrDefaultAsync(y => y.Id.ToString() == userId && y.IsActive);
+                        var username = context.Principal.Identity.Name;
+                        var user = await userService.Users.FirstOrDefaultAsync(y => y.UserName == username && y.IsActive);
                         if (user == null)
                         {
                             context.Fail("Unauthorized");
