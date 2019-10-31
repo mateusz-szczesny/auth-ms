@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Auth.Models
 {
-    public class DbContext : IdentityDbContext<User, IdentityRole<long>, long>
+    public class DatabaseContext : IdentityDbContext<User, IdentityRole<long>, long>
     {
-        public DbContext(DbContextOptions<DbContext> options) : base(options)
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
             Database.SetCommandTimeout(180);
         }

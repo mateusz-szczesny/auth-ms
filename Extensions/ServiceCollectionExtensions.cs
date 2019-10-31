@@ -19,11 +19,10 @@ namespace Auth.Extensions
         public static void AddDatabaseServices(this IServiceCollection services, IConfiguration configuration)
         {
             var connection = configuration["DatabaseUrl"];
-            services.AddDbContext<Auth.Models.DbContext>(options =>
-            options.UseSqlServer(connection));
+            services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>(options =>
+            options.UseNpgsql(connection));
             services.AddIdentity<User, IdentityRole<long>>()
-                .AddEntityFrameworkStores<Auth.Models.DbContext>()
-                .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<DatabaseContext>();
         }
         public static void AddAuthenticationServices(this IServiceCollection services, IConfiguration configuration)
         {

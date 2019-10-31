@@ -11,13 +11,13 @@ namespace Auth.Repositories
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly Auth.Models.DbContext _context;
+        private readonly DatabaseContext _context;
         private readonly IOptions<AuthorizationSettings> _settings;
 
         public AuthRepository(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            Auth.Models.DbContext context,
+            DatabaseContext context,
             IOptions<AuthorizationSettings> settings)
         {
             _userManager = userManager;
