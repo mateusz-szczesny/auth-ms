@@ -24,8 +24,12 @@ namespace Auth.Extensions
             {
                 connection = configuration["DatabaseUrl"];
             }
-            services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>(options =>
-            options.UseNpgsql(connection));
+            services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>(
+                options =>
+                {
+                    options.UseNpgsql(connection);
+                }
+            );
             services.AddIdentity<User, IdentityRole<long>>()
                 .AddEntityFrameworkStores<DatabaseContext>();
         }

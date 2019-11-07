@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Auth.Crypto;
 using Auth.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -30,11 +31,11 @@ namespace Auth.Repositories
         {
             try
             {
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == identifier || x.UserName == identifier);
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == identifier);
                 if (user != null && await _userManager.CheckPasswordAsync(user, password))
                 {
                     await _signInManager.SignInAsync(user, true);
-                    return new Token(TokenGenerator.GenerateToken(_settings.Value, user.UserName));
+                    return new Token(TokenEncryptor.GenerateToken(_settings.Value, user.UserName));
                 }
                 else
                 {
