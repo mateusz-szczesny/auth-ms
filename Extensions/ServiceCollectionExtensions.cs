@@ -20,10 +20,6 @@ namespace Auth.Extensions
         public static void AddDatabaseServices(this IServiceCollection services, IConfiguration configuration)
         {
             var connection = Environment.GetEnvironmentVariable("DATABASE_URL");
-            if (String.IsNullOrEmpty(connection))
-            {
-                connection = configuration["DatabaseUrl"];
-            }
             services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>(
                 options =>
                 {
